@@ -32,7 +32,7 @@ public class OrderValidator {
     }
 
     private boolean isBalanceValidForOperation(Order order, Account account) {
-         return order.getInAmount().compareTo(account.getRubBalance()) < 0;
+         return order.getInAmount().compareTo(account.getRubBalance().subtract(account.getReservedRubBalance())) < 0;
     }
 
     public void validateOrderChangeableState(Order order) {

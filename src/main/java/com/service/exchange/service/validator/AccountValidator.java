@@ -1,6 +1,8 @@
 package com.service.exchange.service.validator;
 
 import com.service.exchange.dao.AccountRepository;
+import com.service.exchange.entity.Account;
+import com.service.exchange.service.exception.AccountAlreadyExistException;
 import com.service.exchange.service.exception.AccountInputDataException;
 import com.service.exchange.service.exception.AccountNotFoundException;
 import org.springframework.stereotype.Component;
@@ -19,6 +21,12 @@ public class AccountValidator {
     public void validate(String userId) {
         if(accountRepository.findByUserId(userId) == null) {
             throw new AccountNotFoundException("NO ACCOUNT FOUND FOR USER");
+        }
+    }
+
+    public void validateExistingAccount(Account account) {
+        if(accountRepository.findByUserId(account.getUserId()) != null) {
+            throw new AccountAlreadyExistException("ACCOUNT ALREADY EXISTS FOR USER");
         }
     }
 

@@ -5,6 +5,8 @@ import com.service.exchange.dao.AccountRepository;
 import com.service.exchange.entity.Account;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 public class AccountService {
 
@@ -17,7 +19,9 @@ public class AccountService {
     }
 
     public void create(Account account) {
+        validationService.getAccountValidator().validateExistingAccount(account);
         validationService.getAccountValidator().validate(account.getRubBalance(), account.getUsdtBalance());
+        account.setReservedRubBalance(new BigDecimal(0));
         accountRepository.save(account);
     }
 

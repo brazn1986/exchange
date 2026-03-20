@@ -33,6 +33,9 @@ public class OrderExecutionService {
         account.setRubBalance(updRubBalance);
         account.setUsdtBalance(updUsdtBalance);
 
+        BigDecimal newReservedSum = account.getReservedRubBalance().subtract(order.getInAmount());
+        account.setReservedRubBalance(newReservedSum);
+
         accountRepository.save(account);
         orderRepository.save(order);
     }

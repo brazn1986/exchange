@@ -24,6 +24,9 @@ public class Account {
     @Column(name = "usdtAmount", precision = 12, scale = 8)
     private BigDecimal usdtBalance;
 
+    @Column(name = "reservedRubBalance")
+    private BigDecimal reservedRubBalance;
+
     @Column
     private String userId;
 
@@ -65,5 +68,13 @@ public class Account {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public BigDecimal getReservedRubBalance() {
+        return reservedRubBalance;
+    }
+
+    public void setReservedRubBalance(BigDecimal reservedRubBalance) {
+        this.reservedRubBalance = reservedRubBalance;
     }
 }
