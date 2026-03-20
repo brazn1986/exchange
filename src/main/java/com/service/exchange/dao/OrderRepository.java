@@ -1,0 +1,22 @@
+package com.service.exchange.dao;
+
+import com.service.exchange.entity.Order;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface OrderRepository extends JpaRepository<Order, String> {
+
+    @Cacheable(value = "ordersByStatus", key = "#status")
+    List<Order> findByStatus(String status);
+
+    @CacheEvict(value = "ordersByStatus", allEntries = true)
+    Order save(Order order);
+
+
+
+}
